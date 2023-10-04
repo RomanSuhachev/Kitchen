@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,50 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &189684724
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 189684726}
-  - component: {fileID: 189684725}
-  m_Layer: 0
-  m_Name: GameInput
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &189684725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189684724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28bf539118678f74a89b29a355824f31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &189684726
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189684724}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.629425, y: 41.983154, z: 8.590568}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330021470
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +137,7 @@ GameObject:
   - component: {fileID: 330021472}
   - component: {fileID: 330021471}
   - component: {fileID: 330021476}
+  - component: {fileID: 330021477}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -202,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   rotationSpeed: 10
-  gameInput: {fileID: 189684725}
+  playerInput: {fileID: 330021477}
   charContr: {fileID: 330021476}
 --- !u!136 &330021472
 CapsuleCollider:
@@ -319,6 +276,18 @@ CharacterController:
   m_SkinWidth: 0.7
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &330021477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330021470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28bf539118678f74a89b29a355824f31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &619316726
 GameObject:
   m_ObjectHideFlags: 3
@@ -1033,5 +1002,4 @@ SceneRoots:
   - {fileID: 1895095676437241991}
   - {fileID: 330021475}
   - {fileID: 1393659350}
-  - {fileID: 189684726}
   - {fileID: 1309657104}
