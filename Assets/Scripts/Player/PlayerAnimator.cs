@@ -1,13 +1,17 @@
 using UnityEngine;
 
-public class PlayerAnimator : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private Animator animator;
-
-    [SerializeField] private Player player;
-    
-    private void Update()
+    public class PlayerAnimator : MonoBehaviour
     {
-        animator.SetBool("IsWalking", player.IsWalking);
+        [SerializeField] private Animator animator;
+
+        [SerializeField] private Player player;
+        private static readonly int IsWalking = Animator.StringToHash("IsWalking");
+
+        private void Update()
+        {
+            animator.SetBool(IsWalking, player.IsWalking);
+        }
     }
 }
