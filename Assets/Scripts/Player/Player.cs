@@ -1,3 +1,5 @@
+using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -5,19 +7,87 @@ namespace Player
 {
     public class Player : MonoBehaviour
     {
+        public static Player Instance { get; private set; }
+        public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+
+        public class OnSelectedCounterChangedEventArgs : EventArgs
+        {
+            public ClearCounter selectedCounter;
+        }
     
         [SerializeField] private float speed = 20f;
         [SerializeField] private float rotationSpeed = 10f;
         [SerializeField] private GameInput gameInput;
         [SerializeField] private CharacterController charContr;
+        [SerializeField] private LayerMask counterLayerMask;
         public bool IsWalking { get; private set; }
+        private ClearCounter selectedCounter;
+        private Vector3 lastInteractDir;
+
+        private void Start()
+        {
+            gameInput.OnInterAction += GameInput_OnInterAction;
+        }
+
+        private void GameInput_OnInterAction(object sender, EventArgs e)
+        {
+
+            if (selectedCounter != null)
+            {
+                selectedCounter.Interact();
+            }
+        }
 
         private void Awake()
         {
             charContr = GetComponent<CharacterController>();
+            Instance = this;
         }
 
         private void Update()
+        {
+            HandleMovement();
+            HandleInteractions();
+        }
+
+        private void HandleInteractions()
+        {
+            Vector2 inputVector = gameInput.GetMovementNormalized();
+            Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+            float interactDistance = 4f;
+            RaycastHit raycastHit;
+
+            if (moveDir != Vector3.zero)
+            {
+                lastInteractDir = moveDir;
+            }
+
+            if (Physics.Raycast(transform.position, lastInteractDir,out raycastHit, interactDistance, counterLayerMask))
+            {
+                
+                if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+                {
+                    if (clearCounter != selectedCounter)
+                    {
+                        SetSelectedCounter(clearCounter);
+                        
+                        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
+                        {
+                            selectedCounter = selectedCounter
+                        });
+                    }
+                    
+                }else
+                {
+                    SetSelectedCounter(null);
+                }
+            }else
+            {
+                SetSelectedCounter(null);
+            }
+        }
+
+        private void HandleMovement()
         {
             float moveDistance = speed * Time.deltaTime;
             
@@ -58,5 +128,17 @@ namespace Player
         
             transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotationSpeed);
         }
+        
+        private void SetSelectedCounter(ClearCounter selectedCounter)
+        {
+            this.selectedCounter = selectedCounter;
+        
+            OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
+            {
+                selectedCounter = selectedCounter
+            });
+        }
     }
+    
+   
 }
