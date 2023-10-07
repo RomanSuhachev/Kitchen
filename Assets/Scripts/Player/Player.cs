@@ -25,7 +25,7 @@ namespace Player
 
         private void Start()
         {
-            gameInput.OnInterAction += GameInput_OnInterAction;
+            playerInput.OnInterAction += GameInput_OnInterAction;
         }
 
         private void GameInput_OnInterAction(object sender, EventArgs e)
@@ -39,7 +39,6 @@ namespace Player
 
         private void Awake()
         {
-            charContr = GetComponent<CharacterController>();
             Instance = this;
         }
 
@@ -52,7 +51,7 @@ namespace Player
 
         private void HandleInteractions()
         {
-            Vector2 inputVector = gameInput.GetMovementNormalized();
+            Vector2 inputVector = playerInput.GetMovementNormalized();
             Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
             float interactDistance = 4f;
             RaycastHit raycastHit;
