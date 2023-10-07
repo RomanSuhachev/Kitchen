@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IKitchenObjectParent
     {
         public static Player Instance { get; private set; }
         public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
@@ -19,9 +19,12 @@ namespace Player
         [SerializeField] private PlayerInputSystem playerInput;
         [SerializeField] private CharacterController charContr;
         [SerializeField] private LayerMask counterLayerMask;
+        [SerializeField] private Transform kitchenObjectHoldPoint;
         public bool IsWalking { get; private set; }
         private ClearCounter selectedCounter;
         private Vector3 lastInteractDir;
+        private KitchenObject kitchenObject;
+
 
         private void Start()
         {
@@ -33,7 +36,7 @@ namespace Player
 
             if (selectedCounter != null)
             {
-                selectedCounter.Interact();
+                selectedCounter.Interact(this);
             }
         }
 
@@ -137,7 +140,21 @@ namespace Player
                 selectedCounter = selectedCounter
             });
         }
+
+        public Transform GetKitchenObjectFollowTransform() => kitchenObjectHoldPoint;
+
+        public void SetKitchenObject(KitchenObject kitchenObject)
+        {
+            this.kitchenObject = kitchenObject;
+        }
+
+        public KitchenObject GetKitchenObject() => kitchenObject;
+
+        public void ClearKitchenObject()
+        {
+            kitchenObject = null;
+        }
+
+        public bool HasKitchenObject() => kitchenObject != null;
     }
-    
-   
 }

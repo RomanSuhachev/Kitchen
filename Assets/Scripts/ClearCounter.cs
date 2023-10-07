@@ -1,56 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
-public class ClearCounter : MonoBehaviour
+public class ClearCounter : MonoBehaviour, IKitchenObjectParent
 {
 
    [SerializeField] private KitchenObjectSO kitchenObjectSo;
    [SerializeField] private Transform cleaCounterTopPoint;
-   [SerializeField] private ClearCounter secondClearCounter;
-   [SerializeField] private bool testing;
 
-   private KitchenObject kitchenObject;
-
-   private KitchenObject KitchenObject;
-
-   private void Update()
-   {
-       if (testing && Input.GetKeyDown(KeyCode.T))
-       {
-           if (kitchenObject != null)
-           {
-               kitchenObject.SetCleatCounter(secondClearCounter);
-           }
-       }
-   }
-    public void Interact()
+   private KitchenObject _kitchenObject;
+   
+    public void Interact(Player.Player player)
     {
-        if (kitchenObject == null)
+        if (_kitchenObject == null)
         {
             Transform kitchenObjectTransform = Instantiate(kitchenObjectSo.prefab, cleaCounterTopPoint);
-            kitchenObjectTransform.GetComponent<KitchenObject>().SetCleatCounter(this);
+            kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(this);
         }
         else
         {
-            Debug.Log(kitchenObject.GetClearCounter());
+            _kitchenObject.SetKitchenObjectParent(player);
         }
-     
     }
     public Transform GetKitchenObjectFollowTransform() => cleaCounterTopPoint;
 
     public void SetKitchenObject(KitchenObject kitchenObject)
     {
-        this.kitchenObject = kitchenObject;
+        _kitchenObject = kitchenObject;
     }
 
-    public KitchenObject GetKitchenObject() => kitchenObject;
+    public KitchenObject GetKitchenObject() => _kitchenObject;
 
-    public void clearKitchenObject()
+    public void ClearKitchenObject()
     {
-        kitchenObject = null;
+        _kitchenObject = null;
     }
 
-    public bool HasKitchenObject() => kitchenObject != null;
+    public bool HasKitchenObject() => _kitchenObject != null;
 }
