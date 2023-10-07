@@ -8,3 +8,4 @@ public class KitchenObjectSO : ScriptableObject
     public string objectName;
 
 }
+ 
