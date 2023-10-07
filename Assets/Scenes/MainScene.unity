@@ -131,6 +131,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5321948637934237503, guid: dcd48451c07591740a2010c53855ea06, type: 3}
+      propertyPath: tomatoPrefab
+      value: 
+      objectReference: {fileID: 113808538543127336, guid: 4aed3c2b692e4f54b8c628f29b819188, type: 3}
+    - target: {fileID: -5321948637934237503, guid: dcd48451c07591740a2010c53855ea06, type: 3}
+      propertyPath: kitchenObjectSo
+      value: 
+      objectReference: {fileID: 11400000, guid: 9a57f304487bb5d4cb7335e1618f462e, type: 2}
     - target: {fileID: 1452509418735911902, guid: dcd48451c07591740a2010c53855ea06, type: 3}
       propertyPath: m_Name
       value: ClearCounter (1)
@@ -654,7 +662,7 @@ Transform:
   m_GameObject: {fileID: 1309657100}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.1, y: 5.1, z: 15.2}
+  m_LocalPosition: {x: 64.1, y: 5.1, z: 34.5}
   m_LocalScale: {x: 20, y: 10, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1111,7 +1119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7686286663845680381, guid: dcd48451c07591740a2010c53855ea06, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

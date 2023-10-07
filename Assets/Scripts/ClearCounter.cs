@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class ClearCounter : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+   [SerializeField] private KitchenObjectSO kitchenObjectSo;
+   [SerializeField] private Transform cleaCounterTopPoint;
+    
+    
+    
     public void Interact()
     {
         Debug.Log("Interact");
+        Transform kitchenObjectTransform = Instantiate(kitchenObjectSo.prefab, cleaCounterTopPoint);
+        kitchenObjectTransform.localPosition = Vector3.zero;
+
+        Debug.Log(kitchenObjectTransform.GetComponent<KitchenObject>().GetKitechenObjectSO().objectName);
     }
 
 
