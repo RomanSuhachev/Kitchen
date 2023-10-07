@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Player
 {
-    public class GameInput : MonoBehaviour
+    public class PlayerInputSystem : MonoBehaviour
     {
 
         public event EventHandler OnInterAction;

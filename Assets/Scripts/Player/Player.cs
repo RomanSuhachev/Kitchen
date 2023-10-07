@@ -1,7 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -17,7 +16,7 @@ namespace Player
     
         [SerializeField] private float speed = 20f;
         [SerializeField] private float rotationSpeed = 10f;
-        [SerializeField] private GameInput gameInput;
+        [SerializeField] private PlayerInputSystem playerInput;
         [SerializeField] private CharacterController charContr;
         [SerializeField] private LayerMask counterLayerMask;
         public bool IsWalking { get; private set; }
@@ -45,6 +44,7 @@ namespace Player
         }
 
         private void Update()
+        
         {
             HandleMovement();
             HandleInteractions();
@@ -91,7 +91,7 @@ namespace Player
         {
             float moveDistance = speed * Time.deltaTime;
             
-            Vector2 inputVector = gameInput.GetMovementNormalized();
+            Vector2 inputVector = playerInput.GetMovementNormalized();
             Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
             bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * charContr.height, charContr.radius,
