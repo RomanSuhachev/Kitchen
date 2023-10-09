@@ -7,8 +7,8 @@ namespace Player
     
     public class SelectedCounterVisual : MonoBehaviour
     {
-        [SerializeField] private ClearCounter clearCounter;
-        [SerializeField] private GameObject visualGameObject;
+        [SerializeField] private BaseCounter baseCounter;
+        [SerializeField] private GameObject[] visualGameObjectArray;
         private void Start()
         {
             Player.Instance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
@@ -16,7 +16,11 @@ namespace Player
 
         private void Player_OnSelectedCounterChanged(object sender, Player.OnSelectedCounterChangedEventArgs e)
         {
-             visualGameObject.SetActive(e.selectedCounter == clearCounter);
+            foreach (GameObject visualGameObject in visualGameObjectArray)
+            {
+                visualGameObject.SetActive(e.selectedCounter == baseCounter);
+            }
+             
         }
     }
 }

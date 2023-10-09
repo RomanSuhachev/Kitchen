@@ -11,7 +11,7 @@ namespace Player
 
         public class OnSelectedCounterChangedEventArgs : EventArgs
         {
-            public ClearCounter selectedCounter;
+            public BaseCounter selectedCounter;
         }
     
         [SerializeField] private float speed = 20f;
@@ -21,7 +21,7 @@ namespace Player
         [SerializeField] private LayerMask counterLayerMask;
         [SerializeField] private Transform kitchenObjectHoldPoint;
         public bool IsWalking { get; private set; }
-        private ClearCounter selectedCounter;
+        private BaseCounter selectedCounter;
         private Vector3 lastInteractDir;
         private KitchenObject kitchenObject;
 
@@ -67,11 +67,11 @@ namespace Player
             if (Physics.Raycast(transform.position, lastInteractDir,out raycastHit, interactDistance, counterLayerMask))
             {
                 
-                if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+                if (raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
                 {
-                    if (clearCounter != selectedCounter)
+                    if (baseCounter != selectedCounter)
                     {
-                        SetSelectedCounter(clearCounter);
+                        SetSelectedCounter(baseCounter);
                         
                         OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
                         {
@@ -131,7 +131,7 @@ namespace Player
             transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotationSpeed);
         }
         
-        private void SetSelectedCounter(ClearCounter selectedCounter)
+        private void SetSelectedCounter(BaseCounter selectedCounter)
         {
             this.selectedCounter = selectedCounter;
         
