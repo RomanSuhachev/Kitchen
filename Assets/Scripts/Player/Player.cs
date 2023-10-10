@@ -29,6 +29,12 @@ namespace Player
         private void Start()
         {
             playerInput.OnInterAction += GameInput_OnInterAction;
+            playerInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
+        }
+
+        private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
+        {
+           selectedCounter?.InteractAlternate(this);
         }
 
         private void GameInput_OnInterAction(object sender, EventArgs e)
@@ -46,7 +52,6 @@ namespace Player
         }
 
         private void Update()
-        
         {
             HandleMovement();
             HandleInteractions();
@@ -101,7 +106,7 @@ namespace Player
             if (!canMove)
             {
                 Vector3 moveDirX = new Vector3(moveDir.x, 0, 0).normalized;
-                canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * charContr.height, charContr.radius,
+                canMove = moveDir.x !=0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * charContr.height, charContr.radius,
                     moveDirX, moveDistance);
             
                 if (canMove)
@@ -110,7 +115,7 @@ namespace Player
                 }else
                 {
                     Vector3 moveDirZ = new Vector3(0, 0, moveDir.z).normalized;
-                    canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * charContr.height, charContr.radius,
+                    canMove = moveDir.z != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * charContr.height, charContr.radius,
                         moveDirZ, moveDistance);
                     if (canMove)
                     {

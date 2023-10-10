@@ -8,6 +8,7 @@ namespace Player
     {
 
         public event EventHandler OnInterAction;
+        public event EventHandler OnInteractAlternateAction;
         private PlayerInputActions _playerInputActions;
         private void Awake()
         {
@@ -15,7 +16,11 @@ namespace Player
             _playerInputActions.Player.Enable();
 
             _playerInputActions.Player.Interact.performed += Interact_performed;
+            _playerInputActions.Player.InteractionAlternate.performed += InteractionAlternate_performed;
         }
+
+        private void InteractionAlternate_performed(InputAction.CallbackContext obj) =>
+            OnInteractAlternateAction?.Invoke(this, EventArgs.Empty);
 
         private void Interact_performed(InputAction.CallbackContext obj) => OnInterAction?.Invoke(this, EventArgs.Empty);
 
