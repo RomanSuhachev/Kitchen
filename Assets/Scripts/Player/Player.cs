@@ -7,6 +7,8 @@ namespace Player
     public class Player : MonoBehaviour, IKitchenObjectParent
     {
         public static Player Instance { get; private set; }
+
+        public event EventHandler OnPickedSomething;
         public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
 
         public class OnSelectedCounterChangedEventArgs : EventArgs
@@ -34,11 +36,13 @@ namespace Player
 
         private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
         {
+            if (KitchenGameManager.Instance.IsGamePlaying()) return;
            selectedCounter?.InteractAlternate(this);
         }
 
         private void GameInput_OnInterAction(object sender, EventArgs e)
         {
+            if (KitchenGameManager.Instance.IsGamePlaying()) return;
 
             if (selectedCounter != null)
             {
@@ -151,6 +155,11 @@ namespace Player
         public void SetKitchenObject(KitchenObject kitchenObject)
         {
             this.kitchenObject = kitchenObject;
+
+            if (kitchenObject != null)
+            {
+                OnPickedSomething?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public KitchenObject GetKitchenObject() => kitchenObject;
