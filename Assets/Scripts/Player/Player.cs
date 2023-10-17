@@ -36,13 +36,13 @@ namespace Player
 
         private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
         {
-            if (KitchenGameManager.Instance.IsGamePlaying()) return;
+            if (!KitchenGameManager.Instance.IsGamePlaying()) return;
            selectedCounter?.InteractAlternate(this);
         }
 
         private void GameInput_OnInterAction(object sender, EventArgs e)
         {
-            if (KitchenGameManager.Instance.IsGamePlaying()) return;
+            if (!KitchenGameManager.Instance.IsGamePlaying()) return;
 
             if (selectedCounter != null)
             {

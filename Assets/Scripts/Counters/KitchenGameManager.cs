@@ -34,6 +34,7 @@ public class KitchenGameManager : MonoBehaviour
         switch (state)
         {
             case State.WaitingToStart:
+                Debug.Log("WaitingToStart state active");
                 watingToStartTimer -= Time.deltaTime;
                 if (watingToStartTimer < 0f)
                 {
@@ -43,6 +44,7 @@ public class KitchenGameManager : MonoBehaviour
 
                 break;
             case State.CountDownToStart:
+                Debug.Log("countdownToStartTimer state active");
                 countdownToStartTimer -= Time.deltaTime;
                 if (countdownToStartTimer < 0f)
                 {
@@ -52,6 +54,7 @@ public class KitchenGameManager : MonoBehaviour
 
                 break;
             case State.GamePlaying:
+                Debug.Log("Gameplaying state active");
                 gamePlayingTimer -= Time.deltaTime;
                 if (gamePlayingTimer < 0f)
                 {
@@ -61,6 +64,7 @@ public class KitchenGameManager : MonoBehaviour
 
                 break;
             case State.GameOver:
+                Debug.Log("GameOver state active");
                 break;
         }
     }
@@ -70,4 +74,6 @@ public class KitchenGameManager : MonoBehaviour
     public bool IsCountdownToStartActive() => state == State.CountDownToStart;
 
     public float GetCountdownToStartTimer() => countdownToStartTimer;
+
+    public bool IsGameOver() => state == State.GameOver;
 }
